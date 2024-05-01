@@ -36,7 +36,7 @@
                       <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
                       <Component id="btnLeer" min="-2" pref="134" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnJugar" min="-2" pref="134" max="-2" attributes="0"/>
+                      <Component id="btnSalir" min="-2" pref="134" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
@@ -62,7 +62,7 @@
               </Group>
               <EmptySpace pref="86" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnJugar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="btnSalir" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="btnLeer" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
@@ -124,7 +124,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnJugar">
+    <Component class="javax.swing.JButton" name="btnSalir">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="46" red="48" type="rgb"/>

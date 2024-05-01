@@ -4,7 +4,7 @@
  */
 package Servidor.Controlador;
 
-import Servidor.Modelo.Conexion;
+import Servidor.Modelo.Conexion.Conexion;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -49,13 +49,26 @@ public class UsuarioDAO {
         try {
             con = Conexion.getConexion();
             st = con.createStatement();
-            String consulta = "SELECT * FROM Usuario WHERE nombreUsuario='" + usuario + "'and contraseña='" + contraseña + "'";
+            String consulta = "SELECT * FROM Usuario WHERE nombreUsuario='" + usuario + "' AND contraseña='" + contraseña + "'";
             rs = st.executeQuery(consulta);
-            st.close();
-            Conexion.desconectar();
-            return true;
+
+            // Verificar si hay algún resultado
+            if(rs.next()) {
+                // Si hay al menos un resultado, el usuario existe
+                rs.close();
+                st.close();
+                Conexion.desconectar();
+                return true;
+            } else {
+                // Si no hay resultados, el usuario no existe
+                rs.close();
+                st.close();
+                Conexion.desconectar();
+                return false;
+            }
         } catch (Exception e) {
-            return false;
+            return false; // En caso de excepción, devolver falso
         }
     }
+
 }

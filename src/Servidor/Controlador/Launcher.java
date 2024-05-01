@@ -18,14 +18,9 @@ public class Launcher {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            GestorLectura gestor = new GestorLectura();
-            gestor.leer("hola");
-            gestor.leer("como estan");
-            gestor.cerrar();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        
+        Control control = new Control();
+        
     }
     
 }

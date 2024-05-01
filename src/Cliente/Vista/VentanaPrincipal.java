@@ -34,7 +34,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         labelLeer = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txAreaLeer = new javax.swing.JTextArea();
-        btnJugar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnLeer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,10 +53,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         txAreaLeer.setRows(5);
         jScrollPane1.setViewportView(txAreaLeer);
 
-        btnJugar.setBackground(new java.awt.Color(72, 70, 255));
-        btnJugar.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
-        btnJugar.setForeground(new java.awt.Color(255, 255, 255));
-        btnJugar.setText("Salir");
+        btnSalir.setBackground(new java.awt.Color(72, 70, 255));
+        btnSalir.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("Salir");
 
         btnLeer.setBackground(new java.awt.Color(72, 70, 255));
         btnLeer.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
@@ -78,7 +78,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(163, 163, 163)
                         .addComponent(btnLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(157, 157, 157)
                         .addComponent(labPortada, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -97,7 +97,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(labelLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnJugar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLeer, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57))
         );
@@ -108,41 +108,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
-    }
     
     public void mensajeEmergente(String msj){
         JOptionPane.showMessageDialog(null, msj);
+    }
+    
+    public String inputEmergente(String msj){
+        return JOptionPane.showInputDialog(null,msj);
+    }
+        
+        
+    /**
+     * Muestra un cuadro de diálogo de entrada con un valor por defecto utilizando JOptionPane.
+     *
+     * @param msj  Mensaje a mostrar en el cuadro de diálogo.
+     * @param msj2 Valor por defecto para el campo de entrada.
+     * @return La cadena ingresada por el usuario, o null si se canceló la operación.
+     */
+    public String inputEmergente(String msj, String msj2){
+        return JOptionPane.showInputDialog(msj, msj2);
     }
     
     public void mensajeConsola(String msj){
@@ -150,8 +134,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnJugar;
     public javax.swing.JButton btnLeer;
+    public javax.swing.JButton btnSalir;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel labPortada;
     public javax.swing.JLabel labelLeer;
