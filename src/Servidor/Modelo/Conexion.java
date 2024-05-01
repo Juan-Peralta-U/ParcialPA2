@@ -21,7 +21,7 @@ public class Conexion {
     /**
      * es la url de conexion a la base datos (conector, Motor BD, Ubicacion, nombre BD)
     */
-    private static String URLBD = "jdbc:mysql://localhost:3308/parcial2";
+    private static String URLBD = "jdbc:mysql://localhost:3306/parcial2";
     /**
      * usuario de la base de datos
      */
