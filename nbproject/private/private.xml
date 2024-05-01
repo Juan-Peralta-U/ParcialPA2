@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Familia%20Mora/Desktop/ParcialPA2/src/Servidor/Controlador/UsuarioDAO.java</file>
             <file>file:/C:/Users/Familia%20Mora/Desktop/ParcialPA2/data/scriptsBD.sql</file>
-            <file>file:/C:/Users/Familia%20Mora/Desktop/ParcialPA2/src/Cliente/Controlador/UsuarioDAO.java</file>
+            <file>file:/C:/Users/Familia%20Mora/Desktop/ParcialPA2/src/Servidor/Modelo/UsuarioVO.java</file>
+            <file>file:/C:/Users/Familia%20Mora/Desktop/ParcialPA2/src/Servidor/Modelo/Conexion.java</file>
         </group>
     </open-files>
 </project-private>
