@@ -9,6 +9,7 @@ import Cliente.Modelo.ConnCliente;
 import Cliente.Vista.VentanaPrincipal;
 import Cliente.Vista.FileChooser;
 import Cliente.Modelo.ArchivoPropiedades;
+import Servidor.Controlador.GestorLectura;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -22,16 +23,14 @@ import java.util.logging.Logger;
 public class Control implements ActionListener{
 
     private ArchivoPropiedades puertos;
-    private ConnCliente conexion;
     private VentanaPrincipal vista;
     private UsuarioHilo usuario;
    
     public Control() {
-        
-        vista = new VentanaPrincipal();
 
-        puertos = new ArchivoPropiedades(new FileChooser("Selecione Puertos").getFile());
-        ConnCliente.IP_SERVER = vista.inputEmergente("Seleccione Direccion IP", "localhost");
+        puertos = new ArchivoPropiedades(new FileChooser("Seleccione datos de conexion").getFile());
+        vista = new VentanaPrincipal();
+        ConnCliente.IP_SERVER = vista.inputEmergente("Ingrese direccion IP", "localhost");
         
         usuario = new UsuarioHilo(this);
 
@@ -40,14 +39,17 @@ public class Control implements ActionListener{
     
         usuario.iniciarCliente(puerto1, puerto2);
         
+        
         String username = vista.inputEmergente("Escriba su nombre de usuario");
         
         String password = vista.inputEmergente("Escriba su contraseña");
 
         usuario.inicioSesion(username, password);
         
+        vista.setLocationRelativeTo(null);
         vista.btnLeer.addActionListener(this);
         vista.btnSalir.addActionListener(this);
+        vista.setDefaultCloseOperation(0);
         vista.setVisible(true);
     }
     
@@ -66,6 +68,7 @@ public class Control implements ActionListener{
                 
             }
             case("Salir")->{
+                vista.mensajeEmergente("Cerrando conexion");
                 cerrarPrograma();
             }
             
@@ -81,7 +84,7 @@ public class Control implements ActionListener{
             usuario.getConexion().getSalida().writeInt(1);
             usuario.getConexion().getSalida().writeUTF(getVista().txAreaLeer.getText());
         } catch (IOException ex) {
-            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+ 
         }
     }
     
@@ -97,6 +100,6 @@ public class Control implements ActionListener{
     
     public VentanaPrincipal getVista() {
         return vista;
-    }    
+    }
     
 }

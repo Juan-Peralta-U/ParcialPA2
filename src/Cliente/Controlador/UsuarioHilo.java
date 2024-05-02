@@ -18,7 +18,6 @@ public class UsuarioHilo extends Thread {
     private Control control;
     private ConnCliente conexion;
 
-    private int opcion = 0;
 
     public UsuarioHilo(Control control) {
         this.control = control;
@@ -36,7 +35,7 @@ public class UsuarioHilo extends Thread {
 
             int respuestaServer = conexion.getEntrada().readInt();
 
-            if (respuestaServer == 1) { //true or false evaluation
+            if (respuestaServer == 1) { // True or false evaluation
 
                 start();
 
@@ -48,29 +47,43 @@ public class UsuarioHilo extends Thread {
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(Control.class.getName()).log(Level.SEVERE, null, ex);
+            control.getVista().mensajeEmergente("Hubo un error al conectar al servidor");
+            control.getVista().mensajeConsola(ex.getMessage());
+            System.exit(0);
+        } catch (NullPointerException ex){
+            System.exit(0);
         }
     }
 
     @Override
     public void run() {
-
+        int opcion;
         while (true) {
 
             try {
+                
+                // Se lee algo con el objetivo de esperar mientras este activo el servidor
+                
                 opcion = conexion.getEntrada().readInt();
                 
-                System.out.println("a");
+                switch(opcion){
+                    case 1 ->{
+                        control.getVista().mensajeConsola(conexion.getEntrada().readUTF());
+                    }
+                    case 3 ->{
+                        control.getVista().txAreaLeer.setText("");
+                    }
+                }
+                
             } catch (IOException e) {
+                
                 // Se captura cuando la conexion se cae o se cierra con cerrar()
-                control.getVista().mensajeConsola("Se corto la comunicacion");
+                control.getVista().mensajeEmergente("Se corto la comunicacion");
                 break;
             }
 
-            opcion = 0;
-
         }
-
+        
         System.exit(0);
 
     }

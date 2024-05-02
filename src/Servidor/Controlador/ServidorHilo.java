@@ -15,85 +15,73 @@ import javax.speech.EngineException;
  *
  * @author Juan
  */
-public class ServidorHilo extends Thread {
-   
-   private Control control; 
-   private GestorLectura leer;
-   private String nombreUsuario;
-   private final ConnSocket conexionCliente;
-   
-   public ServidorHilo(Control control, ConnSocket conexionCliente, String nombreUsuario) {
+public class ServidorHilo extends Thread{
+
+    private Control control;
+    private String nombreUsuario;
+    private final ConnSocket conexionCliente;
+    private GestorLectura voz;
+
+    public ServidorHilo(Control control, ConnSocket conexionCliente, String nombreUsuario) {
         this.conexionCliente = conexionCliente;
         this.control = control;
         this.nombreUsuario = nombreUsuario;
+        control.setHiloHablando(this);
+        try {
+            voz = new GestorLectura(control);
+            voz.leer("Bienvenido " + nombreUsuario);
+        } catch (Exception ex) {
+            control.getVista().mostrarMensaje("Revisar caracteristica de lectura");
+            
+        }
+    }
 
-        leerMsj("Bienvenido " + nombreUsuario);
-   }       
-
-   @Override
-   public void run(){
+    @Override
+    public void run() {
 
         manejoAcciones();
-        
+
         try {
             conexionCliente.cerrar();
-            control.getVista().mostrarMensaje("Se desconecto un usuario");
+            
         } catch (Exception et) {
             control.getVista().mostrarMensaje("No se puede cerrar el socket");
         }
     }
-   
-   
-   private void manejoAcciones(){
-       while(true){
-           try{
-              int opcion = conexionCliente.getEntrada().readInt();
-              
-            switch(opcion){
-                
-                case 1->{
-                    String msj = conexionCliente.getEntrada().readUTF();
-                    leerMsj(msj);
+
+    private void manejoAcciones() {
+        while (true) {
+            try {
+                int opcion = conexionCliente.getEntrada().readInt();
+
+                switch (opcion) {
+
+                    case 1 -> {
+                        control.setHiloHablando(this);
+                        String msj = conexionCliente.getEntrada().readUTF();
+                        voz.leer(msj);
+                        control.getVista().mostrarMensaje(msj + "\nSe reprodujo una frase");
+                    }
+                    case 2 -> {
+                        control.setHiloHablando(this);
+                        voz.leer("Hasta luego " + nombreUsuario);
+                        control.getVista().mostrarMensaje("Bye " + nombreUsuario);
+                    }
+
                 }
-                case 2->{
-                    leerMsj("Hasta luego " + nombreUsuario);
-                    
-                }
+
+            } catch (IOException e) {
                 
-            }
-               
-           }
-           catch (IOException e) {
-                control.getVista().mostrarMensaje("El cliente termino la conexion");
+                break;
+            } catch(AudioException | EngineException | InterruptedException ex){
+                control.getVista().mostrarMensaje("Error al leer mensajes de cliente " + nombreUsuario);
                 break;
             }
-       }
-   }
-   
-   
-   
-   private void leerMsj(String msj){
-       
-       try {
-           leer = new GestorLectura();
-           leer.leer(msj);
-           
-       } catch (IllegalArgumentException ex) {
-           Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (EngineException ex) {
-           Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (AudioException ex) {
-           Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
-       } catch (InterruptedException ex) {
-           Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       
-       
-   }
-   
-   
-   
-    
-   
-   
+        }
+    }
+
+    public ConnSocket getConexionCliente() {
+        return conexionCliente;
+    }
+
 }

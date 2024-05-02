@@ -39,7 +39,7 @@ public class ArchivoPropiedades {
             entrada = new FileInputStream(archivo);
             propiedades.load(entrada);
         } catch (IOException ex) {
-            ex.printStackTrace();
+
         } finally {
             if (entrada == null) {
                 return;
@@ -47,7 +47,7 @@ public class ArchivoPropiedades {
             try {
                 entrada.close();
             } catch (IOException e) {
-                e.printStackTrace();
+
             }
         }
     }

@@ -49,7 +49,7 @@ public class ConnSocket implements Cloneable{
             sock.close();
             sock2.close();
         } catch (IOException ex) {
-            Logger.getLogger(ConnSocket.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
