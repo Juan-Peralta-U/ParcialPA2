@@ -6,8 +6,6 @@ package Cliente.Controlador;
 
 import Cliente.Modelo.ConnCliente;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -9,7 +9,6 @@ package Cliente.Modelo;
  * @author Familia Mora
  */
 
-import Servidor.Modelo.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;

@@ -4,12 +4,10 @@
  */
 package Cliente.Controlador;
 
-import Cliente.Controlador.UsuarioHilo;
 import Cliente.Modelo.ConnCliente;
 import Cliente.Vista.VentanaPrincipal;
 import Cliente.Vista.FileChooser;
 import Cliente.Modelo.ArchivoPropiedades;
-import Servidor.Controlador.GestorLectura;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;

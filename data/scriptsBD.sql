@@ -1,6 +1,8 @@
-CREATE DATABASE parcial2;
-USE parcial2;
-CREATE TABLE usuario(
-    contraseña varchar(25) PRIMARY KEY,
-    nombreUsuario varchar(25)
+Create database parcial2;
+Use parcial2;
+
+Create table Usuario (
+       Id int primary key,
+       nombreUsuario varchar (50),
+       contrasena  varchar (50)
 );

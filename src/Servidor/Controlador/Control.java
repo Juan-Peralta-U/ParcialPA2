@@ -9,6 +9,7 @@ import Servidor.Vista.FileChooser;
 import Servidor.Modelo.ArchivoPropiedades;
 import Servidor.Modelo.ConnServerSocket;
 import Servidor.Modelo.ConnSocket;
+import Servidor.Modelo.UsuarioVO;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -57,19 +58,23 @@ public class Control{
 
                 ConnSocket tempcon = new ConnSocket();
                 tempcon.aceptarClientes(servidor.getServ(), servidor.getServ2());
-                ServidorHilo user;
+                ServidorHilo userThread;
 
                 String usuario = tempcon.getEntrada().readUTF();
                 String contraseña = tempcon.getEntrada().readUTF();
                 
-                if (gestorUsuarios.consultaUsuario(usuario, contraseña)) {
+                UsuarioVO user = new UsuarioVO();
+                user.setUsuario(usuario);
+                user.setContraseña(contraseña);
+                
+                if (gestorUsuarios.consultaUsuario(user)) {
                     vista.mostrarMensajeEmergente("Servidor >> Conexion recibida");
                     tempcon.getSalida().writeInt(1);
-                    user = new ServidorHilo(this, tempcon, usuario);
+                    userThread = new ServidorHilo(this, tempcon, usuario);
                     
-                    user.start();
-                    user.getConexionCliente().getSalida().writeInt(1);
-                    user.getConexionCliente().getSalida().writeUTF("El cliente esta registrado");
+                    userThread.start();
+                    userThread.getConexionCliente().getSalida().writeInt(1);
+                    userThread.getConexionCliente().getSalida().writeUTF("El cliente esta registrado");
                     
                 } else {
                     

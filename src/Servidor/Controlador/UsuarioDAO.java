@@ -5,6 +5,7 @@
 package Servidor.Controlador;
 
 import Servidor.Modelo.Conexion.Conexion;
+import Servidor.Modelo.UsuarioVO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -48,7 +49,7 @@ public class UsuarioDAO {
      * @param contraseña recibe el otro campo que se desea consultar
      * @return retorna el resultado de la comparacion
      */
-    public boolean consultaUsuario(String usuario, String contraseña) {
+    public boolean consultaUsuario(UsuarioVO usuario) {
 
         try {
             String URLBD = control.getProperties().getData("URLBD");
@@ -56,7 +57,7 @@ public class UsuarioDAO {
             String connContrasena = control.getProperties().getData("contrasena");
             con = Conexion.getConexion(URLBD, connUsuario, connContrasena);
             st = con.createStatement();
-            String consulta = "SELECT * FROM Usuario WHERE nombreUsuario='" + usuario + "' AND contraseña='" + contraseña + "'";
+            String consulta = "SELECT * FROM Usuario WHERE nombreUsuario='" + usuario.getUsuario() + "' AND contrasena='" + usuario.getContraseña() + "'";
             rs = st.executeQuery(consulta);
 
             // Verificar si hay algún resultado

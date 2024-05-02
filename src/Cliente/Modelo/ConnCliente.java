@@ -11,11 +11,8 @@ package Cliente.Modelo;
 import Cliente.Controlador.Control;
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  * Clase ConnCliente que maneja toda la conexion del cliente con el servidor
