@@ -23,16 +23,15 @@ import javax.speech.EngineException;
  * @author Juan
  */
 public class Control {
-    
+
     VistaConsola vista;
     GestorLectura leer;
     ArchivoPropiedades puertos;
     ConnServerSocket servidor;
     UsuarioDAO gestorUsuarios;
 
+    public Control() {
 
-    public Control(){
-    
         try {
             leer = new GestorLectura();
         } catch (IllegalArgumentException ex) {
@@ -45,12 +44,11 @@ public class Control {
         puertos = new ArchivoPropiedades(new FileChooser("Seleccione puertos").getFile());
         gestorUsuarios = new UsuarioDAO();
         loopServidor();
-        
+
     }
-    
-    
-    public void loopServidor(){
-    
+
+    public void loopServidor() {
+
         try {
 
             int puerto1 = Integer.parseInt(puertos.getData("Puerto.1"));
@@ -58,27 +56,26 @@ public class Control {
             servidor.runServer(puerto1, puerto2);
             vista.mostrarMensaje(".::Servidor activo :");
             while (true) {
-            
+
                 vista.mostrarMensaje(".::Esperando Conexion :");
-                
+
                 ConnSocket tempcon = new ConnSocket();
                 tempcon.aceptarClientes(servidor.getServ(), servidor.getServ2());
                 ServidorHilo user;
-                
+
                 String usuario = tempcon.getEntrada().readUTF();
                 String contraseña = tempcon.getEntrada().readUTF();
-                
-                if(gestorUsuarios.consultaUsuario(usuario, contraseña)){
+
+                if (gestorUsuarios.consultaUsuario(usuario, contraseña)) {
                     tempcon.getSalida().writeInt(1);
-                    user = new ServidorHilo(this,tempcon,usuario);
+                    user = new ServidorHilo(this, tempcon, usuario);
                     user.start();
-                }
-                else{
-                    
+                } else {
+
                     tempcon.getSalida().writeInt(0);
-                    tempcon.getSalida().writeUTF("Elclinete no esta registrado");
+                    tempcon.getSalida().writeUTF("El clinete no esta registrado");
                 }
-             
+
             }
         } catch (NumberFormatException ex) {
             vista.mostrarMensaje("No se pudo arrancar servidor. Revisar puertos ingresados.");
@@ -86,15 +83,11 @@ public class Control {
             vista.mostrarMensaje("Accept failed: " + vista + ", " + ex.getMessage());
             vista.mostrarMensaje("Fallo al conectar");
         }
-        
+
     }
 
     public VistaConsola getVista() {
         return vista;
     }
 
-    
-    
-    
-    
 }

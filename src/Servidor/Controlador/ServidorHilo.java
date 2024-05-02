@@ -39,7 +39,7 @@ public class ServidorHilo extends Thread {
             conexionCliente.cerrar();
             control.getVista().mostrarMensaje("Se desconecto un usuario");
         } catch (Exception et) {
-            control.getVista().mostrarMensaje("no se puede cerrar el socket");
+            control.getVista().mostrarMensaje("No se puede cerrar el socket");
         }
     }
    
