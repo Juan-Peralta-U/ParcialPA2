@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 
 /**
- * Clase coneccion contiene los datos de la conexion con la DB
+ * Clase conexión contiene los datos de la conexion con la DB
  * @author Familia Mora
  */
 public class Conexion {
     /**
-     * es la conexion a la base de datos
+     * Es la conexion a la base de datos
      */
     private static Connection cn = null;
 
@@ -32,7 +32,7 @@ public class Conexion {
     }
     
     /**
-     * se desconecta de la base de datos
+     * Se desconecta de la base de datos
      */
     public static void desconectar() {
         cn = null;

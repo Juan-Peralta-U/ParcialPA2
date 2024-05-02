@@ -106,13 +106,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * Método que lanza mensaje emergente
+     * @param msj Mensaje a mostrar
      */
-    
     public void mensajeEmergente(String msj){
         JOptionPane.showMessageDialog(null, msj);
     }
     
+    /**
+     * Método que obtiene un input por medio de ventana emergente
+     * @param msj Mensaje a mostrar
+     * @return Input ingresado
+     */
     public String inputEmergente(String msj){
         return JOptionPane.showInputDialog(null,msj);
     }

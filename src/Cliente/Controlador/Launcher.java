@@ -10,6 +10,10 @@ package Cliente.Controlador;
  */
 public class Launcher {
  
+    /**
+     * Método main
+     * @param args 
+     */
     public static void main(String[] args){
         
         Control control = new Control();

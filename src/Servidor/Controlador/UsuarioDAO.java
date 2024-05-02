@@ -16,9 +16,13 @@ import java.sql.Statement;
  */
 public class UsuarioDAO {
 
-    private Connection con;
     /**
-     * atributo traductor con el lenguaje SQL de una sentencia DML
+     * Objeto Connection que representa la conexión a la base de datos.
+     */
+    private Connection con;
+    
+    /**
+     * Atributo traductor con el lenguaje SQL de una sentencia DML
      */
     private Statement st;
     /**
@@ -39,7 +43,7 @@ public class UsuarioDAO {
     }
 
     /**
-     * Metodo consultaUsuario, a partir de la conexion con la base de datos,
+     * Método consultaUsuario, a partir de la conexion con la base de datos,
      * usamos sentencia SQL que la traducira st para poder ejecutar su funcion
      * que sera mostrar todos los campos de la tabla Usuario en la base de datos
      * que contengan el nombre y contraseña que definimos

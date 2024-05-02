@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
- *
+ * Clase que declara lo correspondiente al ServerSocket que aceptará clientes
+ * 
  * @author cesar
  */
 public class ConnServerSocket{
@@ -32,10 +33,18 @@ public class ConnServerSocket{
         
     }
 
+    /**
+     * Método que obtiene el serversocket
+     * @return El obketo ServerSocket
+     */
     public ServerSocket getServ() {
         return serv;
     }
 
+    /**
+     * Método que obtiene el serversocket2
+     * @return El objeto ServerSocket
+     */
     public ServerSocket getServ2() {
         return serv2;
     }

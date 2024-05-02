@@ -15,15 +15,32 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+
+ * Clase Control que implementa ActionListener para manejar eventos de la interfaz gráfica
+ * y controlar la conexión con el servidor.
  * @author Juan
  */
 public class Control implements ActionListener{
-
+    
+    /**
+     * Objeto ArchivoPropiedades que contiene los puertos de conexión.
+     */
     private ArchivoPropiedades puertos;
+    
+    /**
+     * Objeto VentanaPrincipal que representa la interfaz gráfica.
+     */
     private VentanaPrincipal vista;
+    
+    /**
+     * Objeto UsuarioHilo que maneja la conexión con el servidor.
+     */
     private UsuarioHilo usuario;
-   
+    
+    /**
+     * Constructor de la clase Control.
+     * Inicializa los objetos necesarios y configura la conexión con el servidor.
+     */
     public Control() {
 
         puertos = new ArchivoPropiedades(new FileChooser("Seleccione datos de conexion").getFile());
@@ -51,8 +68,11 @@ public class Control implements ActionListener{
         vista.setVisible(true);
     }
     
-    
-
+     /**
+     * Método que maneja los eventos de la interfaz gráfica.
+     *
+     * @param e Objeto ActionEvent que representa el evento ocurrido.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -76,7 +96,9 @@ public class Control implements ActionListener{
         
     }
     
-    
+    /**
+     * Método que envía el mensaje a leer por el servidor.
+     */
     public void enviarMensajeServer(){
         try {
             usuario.getConexion().getSalida().writeInt(1);
@@ -86,6 +108,9 @@ public class Control implements ActionListener{
         }
     }
     
+    /**
+     * Método que cierra el programa.
+     */
     public void cerrarPrograma(){
         try {
             usuario.getConexion().getSalida().writeInt(2);
@@ -95,7 +120,11 @@ public class Control implements ActionListener{
         }        
     }
     
-    
+    /**
+     * Método que obtiene el objeto VentanaPrincipal.
+     *
+     * @return El objeto VentanaPrincipal.
+     */
     public VentanaPrincipal getVista() {
         return vista;
     }

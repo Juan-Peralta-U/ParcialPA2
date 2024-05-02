@@ -23,15 +23,34 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 import javax.speech.synthesis.Voice;
 
 /**
+ * Clase encargada de gestionar la lectura de texto mediante síntesis de voz.
  *
  * @author cesar
  */
 public class GestorLectura {
 
+    /**
+     * Objeto Synthesizer utilizado para realizar la síntesis de voz.
+     */
     private Synthesizer synth;
+    
+    /**
+     * Objeto Control que maneja la lógica principal de la aplicación.
+     */
     private Control control;
+    
+    /**
+     * Objeto ServidorHilo que representa al usuario actual que está hablando.
+     */
     private ServidorHilo usuarioActual;
-
+    
+     /**
+     * Crea una nueva instancia de GestorLectura.
+     *
+     * @param control Objeto Control que maneja la lógica principal de la aplicación.
+     * @throws IllegalArgumentException Si se proporcionan argumentos inválidos.
+     * @throws EngineException Si ocurre un error relacionado con el motor de síntesis de voz.
+     */
     public GestorLectura(Control control) throws IllegalArgumentException, EngineException {
         this.control = control;
 
@@ -46,15 +65,25 @@ public class GestorLectura {
         synth.allocate();
     }
 
+    /**
+     * Lee el texto dado mediante síntesis de voz.
+     *
+     * @param say Texto que se leerá.
+     * @throws EngineException Si ocurre un error relacionado con el motor de síntesis de voz.
+     * @throws AudioException Si ocurre un error relacionado con el audio.
+     * @throws InterruptedException Si el hilo es interrumpido mientras espera a que el motor termine de hablar.
+     */
     public void leer(String say) throws EngineException, AudioException, InterruptedException {
 
         synth.resume();
 
         synth.speakPlainText(say, null);
         usuarioActual = control.getHiloHablando();
-
+        
+        // Se espera a que termine de hablar
         synth.waitEngineState(Synthesizer.QUEUE_EMPTY);
 
+        // Se manda opcion al cliente requerido para que se borre el texto
         try {
             usuarioActual.getConexionCliente().getSalida().writeInt(3);
         } catch (IOException ex) {
@@ -66,11 +95,22 @@ public class GestorLectura {
         // CRÉDITOS A: CMOP
     }
 
+    /**
+     * Cierra y libera los recursos utilizados por el sintetizador de voz.
+     *
+     * @throws InterruptedException Si el hilo es interrumpido mientras espera a que el motor se cierre.
+     * @throws EngineException Si ocurre un error relacionado con el motor de síntesis de voz.
+     */
     public void cerrar() throws InterruptedException, EngineException {
 
         synth.deallocate();
     }
 
+    /**
+     * Obtiene el objeto Synthesizer utilizado para realizar la síntesis de voz.
+     *
+     * @return El objeto Synthesizer.
+     */
     public Synthesizer getSynth() {
         return synth;
     }

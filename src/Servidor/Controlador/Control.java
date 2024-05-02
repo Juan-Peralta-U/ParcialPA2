@@ -24,17 +24,41 @@ import javax.speech.EngineException;
 import javax.speech.synthesis.SynthesizerEvent;
 
 /**
- *
+ * Clase encargada de comunicar las distintas partes del programa
+ * 
  * @author Juan
  */
 public class Control{
 
+    /**
+     * Objeto VistaConsola que representa la interfaz de consola.
+     */
     private final VistaConsola vista;
+    
+    /**
+     * Objeto ArchivoPropiedades que contiene las propiedades de conexión.
+     */
     private final ArchivoPropiedades properties;
+    
+    /**
+     * Objeto ConnServerSocket que representa el servidor.
+     */
     private final ConnServerSocket servidor;
+    
+    /**
+     * Objeto ConnServerSocket que representa el servidor.
+     */
     private final UsuarioDAO gestorUsuarios;
+    
+    /**
+     * Objeto ServidorHilo que representa el hilo de comunicación con el cliente.
+     */
     private ServidorHilo hiloHablando;
 
+    /**
+     * Constructor de la clase Control.
+     * Inicializa los objetos necesarios y inicia el servidor.
+     */
     public Control() {
         vista = new VistaConsola();
         servidor = new ConnServerSocket();
@@ -46,6 +70,10 @@ public class Control{
 
     }
 
+    /**
+     * Método que inicia el bucle principal del servidor.
+     * Acepta conexiones de clientes y autentica los usuarios.
+     */
     public void loopServidor() {
 
         try {
@@ -54,19 +82,23 @@ public class Control{
             servidor.runServer(puerto1, puerto2);
             while (true) {
 
+                // Lanza el mensaje cada que espera cliente
                 vista.mostrarMensaje("Servidor >> Esperando cliente");
 
                 ConnSocket tempcon = new ConnSocket();
                 tempcon.aceptarClientes(servidor.getServ(), servidor.getServ2());
                 ServidorHilo userThread;
 
+                // Lee el usuario y contraseña que le llega de vista
                 String usuario = tempcon.getEntrada().readUTF();
                 String contraseña = tempcon.getEntrada().readUTF();
                 
+                // Usa el modelo para guardar datos en un Usuario
                 UsuarioVO user = new UsuarioVO();
                 user.setUsuario(usuario);
                 user.setContraseña(contraseña);
                 
+                // LLama al DAO para logear
                 if (gestorUsuarios.consultaUsuario(user)) {
                     vista.mostrarMensajeEmergente("Servidor >> Conexion recibida");
                     tempcon.getSalida().writeInt(1);
@@ -78,6 +110,7 @@ public class Control{
                     
                 } else {
                     
+                    // Si se obtiene que no existe el usuario, se avisa
                     tempcon.getSalida().writeInt(0);
                     tempcon.getSalida().writeUTF("El cliente no esta registrado");
                     vista.mostrarMensajeEmergente("Servidor >> El cliente NO existe");
@@ -93,18 +126,38 @@ public class Control{
 
     }
 
+    /**
+     * Método que obtiene el objeto VistaConsola.
+     *
+     * @return El objeto VistaConsola.
+     */
     public VistaConsola getVista() {
         return vista;
     }
 
+    /**
+     * Método que obtiene el objeto ArchivoPropiedades.
+     *
+     * @return El objeto ArchivoPropiedades.
+     */
     public ArchivoPropiedades getProperties() {
         return properties;
     }
 
+    /**
+     * Método que obtiene el objeto ServidorHilo que está leyendo por voz.
+     *
+     * @return El objeto ServidorHilo.
+     */
     public ServidorHilo getHiloHablando() {
         return hiloHablando;
     }
 
+     /**
+     * Método que establece el objeto ServidorHilo que está leyendo por voz.
+     *
+     * @param hiloHablando El objeto ServidorHilo.
+     */
     public void setHiloHablando(ServidorHilo hiloHablando) {
         this.hiloHablando = hiloHablando;
     }

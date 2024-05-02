@@ -13,16 +13,33 @@ import java.io.IOException;
  */
 public class UsuarioHilo extends Thread {
 
+    /**
+     * Objeto Control que representa el controlador de la aplicación.
+     */
     private Control control;
+    
+    /**
+     * Objeto ConnCliente que representa la conexión con el servidor.
+     */
     private ConnCliente conexion;
 
-
+    /**
+     * Constructor de la clase UsuarioHilo.
+     *
+     * @param control Objeto Control que representa el controlador de la aplicación.
+     */
     public UsuarioHilo(Control control) {
         this.control = control;
 
         this.conexion = new ConnCliente(control);
     }
 
+     /**
+     * Método que declara la lógica para iniciar sesión validándolo con el servidor.
+     *
+     * @param username Nombre de usuario.
+     * @param password Contraseña.
+     */
     public void inicioSesion(String username, String password) {
 
         try {
@@ -43,7 +60,9 @@ public class UsuarioHilo extends Thread {
                 System.exit(0);
 
             }
-
+            
+            
+            // Manejo de errores
         } catch (IOException ex) {
             control.getVista().mensajeEmergente("Hubo un error al conectar al servidor");
             control.getVista().mensajeConsola(ex.getMessage());
@@ -53,6 +72,10 @@ public class UsuarioHilo extends Thread {
         }
     }
 
+    /**
+     * Método que se ejecuta en el hilo.
+     * Maneja la comunicación con el servidor.
+     */
     @Override
     public void run() {
         int opcion;
@@ -86,6 +109,12 @@ public class UsuarioHilo extends Thread {
 
     }
 
+    /**
+     * Método que inicia la conexión con el servidor por los sockets.
+     *
+     * @param puerto1 Primer puerto de conexión.
+     * @param puerto2 Segundo puerto de conexión.
+     */
     public void iniciarCliente(int puerto1, int puerto2) {
         try {
             conexion.conexion(puerto1, puerto2);
@@ -102,6 +131,11 @@ public class UsuarioHilo extends Thread {
 
     }
 
+    /**
+     * Método que obtiene el objeto ConnCliente.
+     *
+     * @return El objeto ConnCliente.
+     */
     public ConnCliente getConexion() {
         return conexion;
     }
